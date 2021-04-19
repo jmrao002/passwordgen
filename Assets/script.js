@@ -80,9 +80,11 @@ let specialChars = [
 let numericChars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 // Function to collect password params from user
-function passwordParams() {
+function generatePassword() {
   let lengthChoice = parseInt(
-    window.prompt(`How many characters should your password contain, boo?`)
+    window.prompt(
+      `How many characters should your password contain, boo? Please select a value between 8 and 128.`
+    )
   );
 
   // Statement to ensure user obeys password params
@@ -122,42 +124,34 @@ function passwordParams() {
     numeric: numericChoice,
   };
 
-  return validatedChoices;
-}
-
-// Function to generate password based on parameter choices made in previous function
-function generatePassword() {
-  let choices = passwordParams();
-
   // Set empty array to be filled by random values based on boolean response
   let emptyPwArray = [];
 
   // Add values to empty array
-  if (choices.special) {
+  if (validatedChoices.special) {
     for (i = 0; i < specialChars.length; ++i) {
       emptyPwArray.push(specialChars[i]);
     }
   }
-  if (choices.numeric) {
+  if (validatedChoices.numeric) {
     for (i = 0; i < numericChars.length; ++i) {
       emptyPwArray.push(numericChars[i]);
     }
   }
-  if (choices.lower) {
+  if (validatedChoices.lower) {
     for (i = 0; i < lowerChars.length; ++i) {
       emptyPwArray.push(lowerChars[i]);
     }
   }
-  if (choices.upper) {
+  if (validatedChoices.upper) {
     for (i = 0; i < upperChars.length; ++i) {
       emptyPwArray.push(upperChars[i]);
     }
   }
-
   // Set empty array to be filled by values that make up final password
   let almostFinal = [];
 
-  for (let i = 0; i < choices.length; ++i) {
+  for (let i = 0; i < validatedChoices.length; ++i) {
     let randomPicker = Math.floor(
       Math.random() * Math.floor(emptyPwArray.length)
     );
@@ -168,8 +162,15 @@ function generatePassword() {
   let finalPW = almostFinal.join("");
 
   // Write password to textarea based on id
-  document.getElementById("password").textContent = finalPW;
+  document.querySelector("#password").innerHTML = finalPW;
 }
+
+// Function to write password
+// function writePassword() {
+//   let password = generatePassword();
+//  let passwordText = document.querySelector("#password");
+//  passwordText.value = password;
+//}
 
 // Button to kick off prompts
 let generatePasswordButton = document.getElementById("generate");
