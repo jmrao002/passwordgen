@@ -22,7 +22,7 @@ Alternatively, the webpage can be accessed at https://jmrao002.github.io/passwor
 
 # Known Bugs
 
-This webpage is not optimized for mobile
+No known bugs
 
 # License
 
